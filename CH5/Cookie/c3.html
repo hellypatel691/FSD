@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h2>User Feedback Form</h2>
+    <form action="/submit-feedback" method="GET">
+        <input type="text" name="name" placeholder="Name" required><br><br>
+        <input type="email" name="email" placeholder="Email" required><br><br>
+        <textarea name="message" placeholder="Message"></textarea><br><br>
+        <label>Rating:</label><br>
+        <input type="radio" name="rating" value="Bad"> Bad
+        <input type="radio" name="rating" value="Average"> Average
+        <input type="radio" name="rating" value="Good"> Good
+        <input type="radio" name="rating" value="Very Good"> Very Good
+        <input type="radio" name="rating" value="Excellent"> Excellent<br><br>
+        <button type="submit">Submit Feedback</button>
+    </form>
+</body>
+</html>
+
+<!-- post -->
+
