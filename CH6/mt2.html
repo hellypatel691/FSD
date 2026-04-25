@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Multiple File Upload</title>
+</head>
+<body>
+    <h2>Upload Up to 5 Files</h2>
+    <!-- action matches your app.post route, name matches upload.array("mypics") -->
+    <form action="/uploadmultiple" method="POST" enctype="multipart/form-data">
+        <input type="file" name="mypics" multiple required>
+        <br><br>
+        <button type="submit">Upload Files</button>
+    </form>
+</body>
+</html>
