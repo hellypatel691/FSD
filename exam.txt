@@ -1,0 +1,13 @@
+ch7 dom,map,filter,event(onclick,ondoubleclick,onchange,onsubmit),props,routing
+ch8 -Hooks:
+	useState
+	useContext(createContext)
+	useReducer
+	useEffect
+-Axios
+Paper Pattern
+	ch7                         ch8
+	10M                    	    15M
+	MCQ   Des                 MCQ   Des 
+	5M     5M                 5M     10M
+5M-Routing,props,map,filter       5M-useState,
