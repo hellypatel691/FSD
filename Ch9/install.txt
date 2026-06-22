@@ -1,0 +1,4 @@
+S-1         https://www.mongodb.com/try/download/community
+S-2         https://www.mongodb.com/try/download/shell -->zip(exe/dll)
+S-3         c/programfiles/mongodb/server/8.0/bin--> paste(zip)
+S-4         system variables->path->edit->c/pf/mongodb/server/8.0/bin
