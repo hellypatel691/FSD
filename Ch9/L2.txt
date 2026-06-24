@@ -1,0 +1,71 @@
+mongosh
+use mydb
+db.createCollection("people")
+db.people.insertMany([{name:"X",age: 20 ,branch:"IT"},{name:"Y",age: 25 ,branch:"CE"},{name:"Z",age: 18 ,branch:"CSE"},{name:"P",age: 28 ,branch:"CS&IT"},{name:"Q",age: 10 ,branch:"AIML"},{name:"R",age: 5 ,branch:"AIDS"}])
+db.people.find()
+db.people.find({age:{$eq:20}})
+db.people.find({age:{$gt:20}})
+db.people.find({age:{$gte:20}})
+db.people.find({age:{$lte:20}})
+db.people.find({age:{$ne:20}})
+db.people.find({age:{$in:[25,50]}})
+db.people.find({age:{$nin:[25,50]}})
+
+1.Update only one document with branch RAI and age 21 where age is < 10
+db.people.updateOne( { age: { $lt: 10 } }, { $set: { age: 21,branch:"RAI" } })
+2.Display all documents where age is >18 and < 25
+db.people.find({age:{$gt:18,$lt:25}})
+3.Display all the documents where people are not age 18 and 21
+db.people.find({age:{$nin:[18,21]}})
+
+
+db.createCollection("participant")
+db.participant.insertMany([{name:"N1",age: 28 ,grade:"A"},{name:"N2",age: 22 ,grade:"B"},{name:"N3",age: 28 ,grade:"C"},{name:"N4",age: 25 ,grade:"D"},{name:"N5",age: 18 ,grade:"A"}])
+db.participant.find({$and:[{name:"N1"},{age:28}]})
+db.participant.find({$or:[{name:"N1"},{age:28}]})
+db.participant.find({age:{$not:{$lt:20}}})
+db.participant.find({age:{$not:{$eq:18}}})
+db.participant.find({grade:{$not:{$in:["A","B"]}}})
+db.participant.find({$nor:[{name:"N1"},{age:18}]})
+
+
+db.createCollection("table1")
+db.table1.insertMany([{name:"X",std: 1},{name:"Y",std: 2},{name:"Z",std: 3},{name:"W",std: 4}])
+db.table1.updateMany({},{$inc:{std:1}})
+db.table1.updateMany({},{$inc:{std:3}})
+db.table1.updateMany({},{$inc:{std:-2}})
+db.table1.updateOne({},{$mul:{std:2}})
+db.table1.updateOne({name:"X"},{$mul:{std:3}})
+db.table1.updateMany({},{$rename:{"name":"uname"}})
+let rec=db.table1.find()
+(don't use rec...use db.table1.find())db.table1.updateOne({std:{$eq:4}},{$unset:{name:" "}})
+
+
+PB-244 consider the following collection 
+name     age
+SSS       22
+YYY       2
+PPP       32
+1.Update name=”JJJ” and age=40, where age=20 occurs. Insert new 
+document, if record is not found.
+db.table1.updateMany({age:20},{$set:{name:"JJJ",age:40}},{upsert:true})
+2.To retrieve age and name fields of documents having names “YYY” & 
+“SSS”. Don’t project _id field.
+db.table1.find({$or:[{name:"YYY"},{name:"SSS"}]},{_id:0})
+
+
+pb 443 Consider the following collection named student:
+[
+ { name: "Rahul", branch: "CSE", marks: 85 },
+ { name: "Anita", branch: "CE", marks: 72 },
+ { name: "Vikram", branch: "CSE", marks: 90 },
+ { name: "Priya", branch: "CE", marks: 65 },
+ { name: "Arjun", branch: "CSE", marks: 75 }
+]
+Using MongoDB Aggregation Framework, write queries to:
+1. Group students by branch and count total students in each branch.
+2. Calculate the average marks for each branch.
+3. Find the highest marks in each branch.
+4. Display only students who scored more than 75 marks.
+5. Sort all students by marks in descending order.
+
