@@ -1,0 +1,100 @@
+Example 3 docs
+
+
+1.find the name 
+/test/
+2.case insensitive
+/test/i
+3.beginning with test only
+/^test/
+4.end with test only
+/test$/
+5.end with digit only
+/[0-9]$/
+6.start with digit only
+/^[0-9]/ or /^\d/
+7.to accept only digits,nothing else,not even blank
+/^[0-9]+$/
+8.to accept only digits,with empty string also
+/^[0-9]*$/
+9.to match name of 3-10 letters only
+/^[A-Z a-z]{3,10}$/
+
+Synatx: db.users.find({ username: { $regex: /^admin/ } })
+
+1.Display students whose name contains Test
+db.sdata.find({name:{$regex:/Test/}})
+2.case insensitive
+db.sdata.find({name:{$regex:/test/i}})
+3.Display students whose name starts with "A"
+db.sdata.find({name:{$regex:/^A/}})
+4.Ends with Test
+db.sdata.find({name:{$regex:/Test$/}})
+5.starts with a digit
+db.sdata.find({name:{$regex:/^[0-9]/}})
+6.ends with a digit
+b.sdata.find({name:{$regex:/[0-9]$/}})
+7.contains only digit
+db.sdata.find({name:{$regex:/^[0-9]+$/}})
+8.contains only letters
+db.sdata.find({name:{$regex:/^[A-Z a-z]+$/}})
+9.starts with letters,ends with a digit
+db.sdata.find({name:{$regex:/^[A-Z a-z].*[0-9]$/}})
+10.starts with A or R
+db.sdata.find({name:{$regex:/^(A|R)/}})
+11.at least one digit
+db.sdata.find({name:{$regex:/[0-9]/}})
+12.two uppercase letters
+db.sdata.find({name:{$regex:/^[A-Z]{2}/}})
+13.excatly three digits at the end
+db.sdata.find({name:{$regex:/^[A-Z a-z]+[0-9]{3}$/}})
+
+
+Indexing
+1.Single field
+2.Compound field
+3.Partial field
+
+COLSCAN
+IXSCAN
+1.Single field
+
+1. Without creating Index
+db.Table1.find({Age:{$gt:12}}.explain("executionStats"))
+2.create an index on the age field
+db.Table1.createIndex({age:1})
+db.Table1.find({Age:{$gt:12}}.explain("executionStats"))
+3.db.Table1.getIndexes()
+db.Table1.find({Age:{$gt:12}}.explain("executionStats"))
+4.dropIndex(index) or dropIndexes()
+db.Table1.dropIndex("Age_1")
+db.Table1.find({Age:{$gt:12}}.explain("executionStats"))
+
+2.Compound field
+db.Table1.createIndex({Age:1,Name:-1})
+db.Table1.find({Age:{$gt:12}}.explain("executionStats"))
+
+1.display student with name abc and age 15
+db.Table1.find({Age:15,Name:"ABC"}).explain("executionStats")
+2.display students whose age is greater than 12(with execution states)
+db.Table1.find({Age:{$gt:12}}).explain("executionStats")
+3.display students whose name is abc
+db.Table1.find({Name:"ABC"}).explain("executionStats")
+4.drop index
+db.Table1.dropIndexes()
+
+3. Partial field
+
+db.Table1.createIndex({age:1},{partialFilterExpression:{age:{$gt:13}}})
+
+ex3: ans
+1.db.sd.find({age:{$gt:15},name:"BBB"}).explain("executionStats")
+2.db.sd.find({age:{$gt:30}}).explain("executionStats")
+
+ex4: ans
+1.db.ex.find({age:20}).explain("executionStats")
+2.db.ex.find({age:20,name:"XYZ"}).explain("executionStats")
+3.db.ex.find({age:20,name:"XYZ"}).explain("executionStats")
+4.db.ex.createIndex({marks:1},{partialFilterExpression:{marks:{$gt:80}}})
+db.ex.find({marks:{$gt:80}}).explain("executionStats")
+5.db.ex.find({marks:{$gt:70}}).explain("executionStats")
